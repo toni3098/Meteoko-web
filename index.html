@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meteoko – Météo en temps réel</title>
+  <meta name="description" content="Consultez la météo actuelle et les prévisions de n'importe quelle ville du monde.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Fond atmosphérique -->
+  <div class="backdrop" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <nav class="navbar__inner container" aria-label="Navigation principale">
+      <a href="#accueil" class="brand">
+        <span class="brand__mark" aria-hidden="true">☀</span>
+        <span class="brand__name">Meteoko</span>
+      </a>
+
+      <button class="navbar__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="navbar__menu" id="navMenu">
+        <ul class="navbar__links">
+          <li><a href="#accueil" class="is-active">Accueil</a></li>
+          <li><a href="#details">Détails</a></li>
+          <li><a href="#previsions">Prévisions</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#recherche" class="btn btn--small">Chercher une ville</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero container" id="accueil">
+      <div class="hero__text">
+        <h1>La météo de votre ville, en un coup d'œil</h1>
+        <p class="lead">Température, vent, humidité et prévisions sur 5 jours. Tapez le nom d'une ville pour commencer.</p>
+
+        <form class="search glass" id="searchForm" role="search" autocomplete="off">
+          <label for="cityInput" class="sr-only">Nom de la ville</label>
+          <input type="search" id="cityInput" name="city" placeholder="Ex. : Paris, Tokyo, Nairobi…" required>
+          <button type="submit" class="btn">Rechercher</button>
+        </form>
+        <span id="recherche"></span>
+
+        <div class="chips" aria-label="Villes populaires">
+          <button type="button" class="chip" data-city="Paris">Paris</button>
+          <button type="button" class="chip" data-city="Londres">Londres</button>
+          <button type="button" class="chip" data-city="New York">New York</button>
+          <button type="button" class="chip" data-city="Tokyo">Tokyo</button>
+        </div>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+
+      <article class="current glass" id="currentWeather" aria-label="Météo actuelle">
+        <header class="current__head">
+          <div>
+            <h2 id="cityName">Paris, France</h2>
+            <p class="muted" id="cityDate">Mercredi 21 octobre, 14:30</p>
+          </div>
+          <span class="badge">En direct</span>
+        </header>
+
+        <div class="current__main">
+          <div class="current__icon" id="currentIcon" aria-hidden="true">⛅</div>
+          <div>
+            <p class="current__temp"><span id="currentTemp">17</span><sup>°C</sup></p>
+            <p class="current__desc" id="currentDesc">Partiellement nuageux</p>
+          </div>
+        </div>
+
+        <footer class="current__foot">
+          <p><span class="muted">Max</span> <strong id="tempMax">19°</strong></p>
+          <p><span class="muted">Min</span> <strong id="tempMin">11°</strong></p>
+          <p><span class="muted">Ressenti</span> <strong id="feelsLike">16°</strong></p>
+        </footer>
+      </article>
+    </section>
+
+    <!-- ===== DÉTAILS ===== -->
+    <section class="section container" id="details">
+      <div class="section__head">
+        <h2>Les conditions en détail</h2>
+        <p class="muted">Les mesures qui comptent avant de sortir.</p>
+      </div>
+
+      <div class="grid grid--details">
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">💧</span>
+          <p class="stat__label">Humidité</p>
+          <p class="stat__value" id="humidity">64%</p>
+        </article>
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">🌬️</span>
+          <p class="stat__label">Vent</p>
+          <p class="stat__value" id="wind">14 km/h</p>
+        </article>
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">🧭</span>
+          <p class="stat__label">Pression</p>
+          <p class="stat__value" id="pressure">1016 hPa</p>
+        </article>
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">🕶️</span>
+          <p class="stat__label">Indice UV</p>
+          <p class="stat__value" id="uv">3</p>
+        </article>
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">👁️</span>
+          <p class="stat__label">Visibilité</p>
+          <p class="stat__value" id="visibility">10 km</p>
+        </article>
+        <article class="stat glass">
+          <span class="stat__icon" aria-hidden="true">☁️</span>
+          <p class="stat__label">Couverture nuageuse</p>
+          <p class="stat__value" id="clouds">45%</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== PRÉVISIONS ===== -->
+    <section class="section container" id="previsions">
+      <div class="section__head">
+        <h2 id="forecastTitle">Prévisions sur 5 jours</h2>
+        <p class="muted">Températures maximales et minimales jour par jour.</p>
+      </div>
+
+      <div class="grid grid--forecast" id="forecastList">
+        <article class="day glass">
+          <p class="day__name">Jeu.</p>
+          <p class="day__icon" aria-hidden="true">🌧️</p>
+          <p class="day__temp"><strong>16°</strong> <span class="muted">10°</span></p>
+        </article>
+        <article class="day glass">
+          <p class="day__name">Ven.</p>
+          <p class="day__icon" aria-hidden="true">⛅</p>
+          <p class="day__temp"><strong>18°</strong> <span class="muted">11°</span></p>
+        </article>
+        <article class="day glass">
+          <p class="day__name">Sam.</p>
+          <p class="day__icon" aria-hidden="true">☀️</p>
+          <p class="day__temp"><strong>21°</strong> <span class="muted">12°</span></p>
+        </article>
+        <article class="day glass">
+          <p class="day__name">Dim.</p>
+          <p class="day__icon" aria-hidden="true">☀️</p>
+          <p class="day__temp"><strong>22°</strong> <span class="muted">13°</span></p>
+        </article>
+        <article class="day glass">
+          <p class="day__name">Lun.</p>
+          <p class="day__icon" aria-hidden="true">🌦️</p>
+          <p class="day__temp"><strong>17°</strong> <span class="muted">11°</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <section class="section container" id="apropos">
+      <div class="about glass">
+        <div class="about__text">
+          <h2>Des données fiables, une interface claire</h2>
+          <p>Meteoria s'appuie sur l'API WeatherAPI pour afficher des mesures actualisées en temps réel, pour des milliers de villes à travers le monde.</p>
+          <p>Le site s'adapte à votre écran, qu'il s'agisse d'un téléphone, d'une tablette ou d'un ordinateur.</p>
+        </div>
+        <ul class="about__list">
+          <li><strong>Recherche instantanée</strong><span class="muted">Tapez une ville et obtenez sa météo.</span></li>
+          <li><strong>Prévisions détaillées</strong><span class="muted">Cinq jours devant vous, en un regard.</span></li>
+          <li><strong>Adapté à tous les écrans</strong><span class="muted">Lisible sur mobile comme sur ordinateur.</span></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner container glass">
+      <div class="footer__brand">
+        <a href="#accueil" class="brand">
+          <span class="brand__mark" aria-hidden="true">☀</span>
+          <span class="brand__name">Meteoko</span>
+        </a>
+        <p class="muted">La météo claire et rapide, pour planifier votre journée.</p>
+      </div>
+
+      <div class="footer__col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:antoniozafitombo316@gmail.com">antoniozafitombo316@gmail.com</a></li>
+          <li><a href="https://github.com/toni3098" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+
+      <p class="footer__legal muted">© 2026 Meteoko. Données météo fournies par <a href="https://www.weatherapi.com/" target="_blank" rel="noopener">WeatherAPI.com</a>.</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+  <script>
+    // Menu mobile
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('is-open');
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(link =>
+      link.addEventListener('click', () => {
+        menu.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+  </script>
+</body>
+</html>
